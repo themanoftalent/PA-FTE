@@ -1,0 +1,34 @@
+# config.yaml
+dataset:
+  mimic_path: "/path/to/mimiciv/3.1/"   # after credentialed download
+  window_length: 48
+  horizon: 12
+  vital_ids: [220045, 220050, 220052, 220210]  # HR, SBP, DBP, RR example
+  sample_rate_min: 5
+
+federated:
+  num_clients: 5
+  rounds: 50
+  local_epochs: 2
+  lr: 0.0001
+  mu: 0.01                # FedProx proximal term
+  batch_size: 64
+  participation: 0.6
+
+model:
+  input_dim: 12           # vitals + delta + mask features
+  d_model: 128
+  nhead: 4
+  num_layers: 4
+  d_mem: 64
+  gamma: 0.85             # belief state EMA
+
+agent:
+  llm_path: "./models/llama-3.1-8b-instruct-q4_k_m.gguf"
+  risk_threshold_alert: 0.45
+  risk_threshold_eval: 0.6
+  k_candidates: 5
+
+metrics:
+  alpha: 1.0
+  beta: 0.5
